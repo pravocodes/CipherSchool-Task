@@ -1,24 +1,22 @@
 import React from 'react'
-import { useCart } from '../context/cart';
+import { useCart } from '../context/cartContext';
 
 const cart = () => {
 
     const [cart, setCart] = useCart();
       //total price
   const totalPrice = () => {
-    try {
-      let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
-      });
-      return total.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  try {
+    var total = 0;
+    cart?.map((item) => {
+      total = total + parseFloat(item.price); 
+    });
+    return total;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   //detele item
   const removeCartItem = (pid) => {
     try {
@@ -77,8 +75,9 @@ const getAmount = () => {
               {cart?.map((p) => (
                 <div className="row mb-2 p-3 card flex-row" key={p._id}>
                   <div className="col-md-4">
+                    {console.log(cart)}
                     <img
-                      src={cart?.img}
+                      src={p.src}
                       className="card-img-top"
                       alt={p.name}
                       width="100px"
